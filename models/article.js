@@ -1,3 +1,5 @@
+console.log('inside Article.js');
+
 // Require mongoose
 var mongoose = require("mongoose");
 // Create Schema class
@@ -11,23 +13,30 @@ var ArticleSchema = new Schema({
     required: true,
     unique: true
   },
-  // description is a required string
-  description: {
+  // link is a required string
+  link: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
-  // boolean to flag articles as saved
+  summary: {
+    type: String,
+  },
+   byline: {
+   type: String,
+  },
   saved: {
     type: Boolean,
-    required: true,
-    default: false
-  },
-  // This will save an array of comments' ObjectIds
-  comments:[{
-        type: Schema.ObjectId,
-        ref:'Comment'
-    }]
+    default: false,
+   },
+   date: {
+    type: Date,
+    default: Date.now,
+   },
+  // This only saves one note's ObjectId, ref refers to the Note model
+  note: [{
+    type: Schema.Types.ObjectId,
+    ref: "Note"
+  }]
 });
 
 // Create the Article model with the ArticleSchema
